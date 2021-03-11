@@ -93,6 +93,7 @@ public class EmployeeMainPanel extends JPanel{
 	}
 	
 	public void initComp() {
+		txtId.setEditable(false);
 		btnCreate.setBackground(Resources.PRIMARY_DARK);
 		btnCreate.addMouseListener(new MouseAdapter() {
 			@Override

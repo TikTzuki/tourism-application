@@ -38,7 +38,7 @@ public class AnalysisEmployeeActivity extends JPanel {
 	
 	JLabel lblEndDate;
 	JTextField txtEndDate;
-	JButton btnEnDate;
+	JButton btnEndDate;
 	
 	JButton btnAnalysis;
 	JPanel pnlAnalysis;
@@ -62,7 +62,7 @@ public class AnalysisEmployeeActivity extends JPanel {
 	
 	lblEndDate = new JLabel("Đến:");
 	txtEndDate = new JTextField();
-	btnEnDate = new JButton(Resources.CALENDAR_ICON);
+	btnEndDate = new JButton(Resources.CALENDAR_ICON);
 	
 	btnAnalysis = new JButton("Thống kê");
 	pnlAnalysis = new JPanel();
@@ -88,9 +88,9 @@ public class AnalysisEmployeeActivity extends JPanel {
 		
 		txtEndDate.setText(Resources.simpleDateFormat.format(new Date()));
 		txtEndDate.setPreferredSize(Resources.INPUT_TYPE_DATE);
-		btnEnDate.setPreferredSize(Resources.SQUARE_XXS);
-		btnEnDate.setBackground(Resources.PRIMARY_DARK);
-		btnEnDate.addMouseListener(new MouseAdapter() {
+		btnEndDate.setPreferredSize(Resources.SQUARE_XXS);
+		btnEndDate.setBackground(Resources.PRIMARY_DARK);
+		btnEndDate.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
 				txtEndDate.setText(new DatePicker().getPickedDate("yyyy-MM-dd"));
 			}
@@ -109,7 +109,7 @@ public class AnalysisEmployeeActivity extends JPanel {
 		pnlAnalysis.add(btnStartDate);
 		pnlAnalysis.add(lblEndDate);
 		pnlAnalysis.add(txtEndDate);
-		pnlAnalysis.add(btnEnDate);
+		pnlAnalysis.add(btnEndDate);
 		pnlAnalysis.add(btnAnalysis);
 		pnlAnalysis.setBackground(Resources.PRIMARY);
 		//Table
