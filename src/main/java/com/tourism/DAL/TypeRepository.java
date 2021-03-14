@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.tourism.DTO.Tour;
 import com.tourism.DTO.Type;
 
 public class TypeRepository implements Repositories<Type, Long> {
@@ -63,29 +64,8 @@ public class TypeRepository implements Repositories<Type, Long> {
 
 	@Override
 	public List<Type> findAll() {
-		List<Type> types = new ArrayList<Type>();
-		ResultSet rsType = this.connector.executeQuery("SELECT * FROM type_of_tour ;");
-		try {
-			while (rsType != null && rsType.next()) {
-				Type type = new Type();
-				type.setId(Long.valueOf(rsType.getLong("id")));
-				type.setName(rsType.getString("name"));
-//				// Set tours
-//				if (type.getTours() == null) {
-//					ResultSet rsTour = connector
-//							.executeQuery("SELECT tour.id FROM tour WHERE tour.type_id = \"" + type.getId() + "\" ;");
-//					List<Long> idTours = new ArrayList<Long>();
-//					while (rsTour != null && rsTour.next()) {
-//						idTours.add(Long.valueOf(rsTour.getLong("id")));
-//					}
-//					type.setTours(new TourRepository().findAllById(idTours));
-//				}
-				types.add(type);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return types;
+		ResultSet rsType = this.connector.executeQuery("select * from type_of_tour");
+		return extractResultSet(rsType);
 	}
 
 	@Override
@@ -162,12 +142,17 @@ public class TypeRepository implements Repositories<Type, Long> {
 		return false;
 	}
 	
-	public String getNameById(Long id) throws SQLException {
+	public String getNameById(Long id) {
 		String name = "";
 		ResultSet rsName = this.connector.executeQuery("SELECT name from type_of_tour where id ='"+id+"'");
-		while(rsName.next()) {
-			String Name = new String(rsName.getString("name"));
-			name = Name;
+		try {
+			while(rsName.next()) {
+				String Name = new String(rsName.getString("name"));
+				name = Name;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return name;
 	}
@@ -185,6 +170,21 @@ public class TypeRepository implements Repositories<Type, Long> {
 			e.printStackTrace();
 		}
 		return id;
+	}
+	
+	public List<Type> extractResultSet(ResultSet rs){
+		List<Type> types = new ArrayList<Type>();
+		try {
+			while (rs!=null && rs.next()) {
+				Type type = new Type();
+				type.setId(Long.valueOf(rs.getLong("id")));
+				type.setName(rs.getString("name"));
+				types.add(type);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return types;
 	}
 }
 

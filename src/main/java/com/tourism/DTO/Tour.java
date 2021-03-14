@@ -27,11 +27,11 @@ public class Tour {
 	String description;
 	String status;
 	String image;
-	Type type ;
-
+	protected Type type ;
+	protected TourCost cost;
 	List<TouristGroup> touristGroups ;
 	List<Location> locations;
-	//List<TourCost> tourCosts;
+	List<TourCost> tourCosts;
 	Location location;
 	List<Long> idLocation;
 }

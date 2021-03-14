@@ -136,17 +136,6 @@ public class LocationRepository implements Repositories<Location, Long> {
 				location.setAddress2(rs.getString("address2"));
 				location.setAddress3(rs.getString("address3"));
 				location.setStreet(rs.getString("street"));
-//				// Set tours
-//				if(location.getTours() == null) {
-//					ResultSet rsTour = connector.executeQuery(
-//							"SELECT temp.tour_id as id FROM tour_location temp WHERE temp.location = \""
-//							+location.getId() + "\" GROUP BY temp.tour_id ;");
-//					List<Long> idTours = new ArrayList<Long>();
-//					while(rsTour != null && rsTour.next() ) {
-//						idTours.add(Long.valueOf(rsTour.getString("id")));
-//					}
-//					location.setTours(new TourRepository().findAllById(idTours));
-//				}
 				locations.add(location);
 			}
 		} catch (Exception e) {
@@ -166,5 +155,28 @@ public class LocationRepository implements Repositories<Location, Long> {
 	public boolean testPrimaryKey(String id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public List<Location> findAllByAddress1(String address1){
+		StringBuilder query = new StringBuilder("SELECT * FROM location WHERE address1 =\"");
+		query.append(address1+"\"; ");
+		ResultSet rs = connector.executeQuery(query.toString());
+		return extractResultSet(rs);
+	}
+	
+	public List<Location> findAllDistinct() {
+		List<Location> locations = new ArrayList<Location>();
+		ResultSet rsLocation = connector.executeQuery("SELECT DISTINCT address1 FROM location ;");
+		try {
+			while(rsLocation!=null && rsLocation.next()) {
+				Location location = new Location();
+				location.setAddress1(rsLocation.getString("address1"));
+				locations.add(location);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return locations;
 	}
 }

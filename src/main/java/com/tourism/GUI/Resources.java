@@ -69,6 +69,7 @@ public class Resources {
 	public static Dimension MANAGER_TABLE_PANEL = new Dimension(1000,300);
 	
 	public static String[] TOURIST_GROUP_STATUSES = new String[] {"Chưa đi", "Đang đi", "Đã hoàn thành"};
+	public static String[] TOUR_STATUSES = new String[] {"Kích hoạt", "Không kích hoạt",};
 	
 	public static ImageIcon TOURISM_LOGO = IconUtil.loadIcon("src/images/Tourism Logo.png", 200, 50);
 	public static ImageIcon CALENDAR_ICON = IconUtil.loadIcon("src/images/noun_Calendar.png", 28, 28);

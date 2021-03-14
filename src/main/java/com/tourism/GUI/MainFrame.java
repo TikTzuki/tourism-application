@@ -23,6 +23,7 @@ import com.tourism.GUI.frames.analysis.AnalysisMainPanel;
 import com.tourism.GUI.frames.customer.CustomerMainPanel;
 import com.tourism.GUI.frames.employee.EmployeeMainPanel;
 import com.tourism.GUI.frames.tour.TourFrame;
+import com.tourism.GUI.frames.tour.TourMainPanel;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
 import com.tourism.GUI.util.IconUtil;
 
@@ -69,7 +70,7 @@ public class MainFrame extends JFrame {
 		iconMenuItems = new ImageIcon[] {Resources.DASHBOARD, Resources.TRAVEL, Resources.NETWORK, Resources.EMPLOYEE, Resources.TRAVELER};
 		pnlMenuItems = new MenuItem[titleMenuItems.length];
 		// Array Jpanel nội dung chính
-		pnlTourManager = new JPanel();
+		pnlTourManager = new TourMainPanel();
 		pnlTouristGroupManager = new TouristGroupMainPanel();
 		pnlAnalysis = new AnalysisMainPanel();
 		pnlEmployeeManager = new EmployeeMainPanel();

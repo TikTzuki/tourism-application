@@ -14,8 +14,8 @@ public class TourCost {
 	Long id;
 	Long tourId;
 	Double price;
-	String PriceFromTime;
-	String PriceToTime;
+	Date PriceFromTime;
+	Date PriceToTime;
 }
 
 

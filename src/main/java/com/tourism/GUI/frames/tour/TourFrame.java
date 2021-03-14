@@ -20,6 +20,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -32,7 +33,7 @@ import com.tourism.DAL.TypeRepository;
 import com.tourism.DTO.Tour;
 import com.tourism.DTO.Type;
 
-import javax.swing.UIManager;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -40,6 +41,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class TourFrame extends JFrame {
 
@@ -63,14 +66,9 @@ public class TourFrame extends JFrame {
 		listTour = tourRepository.findAll();
 		tableModel.setRowCount(0);
 		listTour.forEach((tour)->{			
-				try {
-					tableModel.addRow(new Object[] {
-						tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
-					});
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				tableModel.addRow(new Object[] {
+					tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
+				});
 			
 		});
 	}
@@ -97,22 +95,7 @@ public class TourFrame extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TourFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TourFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TourFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TourFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -179,7 +162,7 @@ public class TourFrame extends JFrame {
 		lblNewLabel_1_5_2.setBounds(687, 55, 65, 17);
 		panel_1.add(lblNewLabel_1_5_2);
 		lblNewLabel_1_5_2.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		cbb_loaiTour.setBounds(751, 52, 180, 22);
+		cbb_loaiTour.setBounds(750, 52, 180, 22);
 		panel_1.add(cbb_loaiTour);
 		
 		
@@ -301,8 +284,8 @@ public class TourFrame extends JFrame {
 		btn_them.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//tourRepository.AddEmptyTour();
-				AddTour addTour = new AddTour();
-				addTour.setVisible(true);
+			//	AddTour addTour = new AddTour();
+				//addTour.setVisible(true);
 			}
 		});
 		//Function=========================================================
@@ -328,24 +311,19 @@ public class TourFrame extends JFrame {
 				}
 			});
 			// tìm kiếm
-			btn_tim.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					listTour = tourRepository.searchTour(txt_timTenTour.getText(), txt_timDiaDiem.getText(), cbb_loaiTour.getSelectedItem().toString());
-					tableModel.setRowCount(0);
-					listTour.forEach((tour)->{			
-							try {
-								tableModel.addRow(new Object[] {
-									tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
-								});
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						
-					});
-					
-				}
-			});
+//			btn_tim.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					listTour = tourRepository.searchTour(txt_timTenTour.getText(), txt_timDiaDiem.getText(), cbb_loaiTour.getSelectedItem().toString());
+//					tableModel.setRowCount(0);
+//					listTour.forEach((tour)->{			
+//							tableModel.addRow(new Object[] {
+//								tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
+//							});
+//						
+//					});
+//					
+//				}
+//			});
 			
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -360,14 +338,9 @@ public class TourFrame extends JFrame {
 					}
 					tableModel.setRowCount(0);
 					listTour.forEach((tour)->{			
-							try {
-								tableModel.addRow(new Object[] {
-									tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
-								});
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+							tableModel.addRow(new Object[] {
+								tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
+							});
 						
 					});
 				}
@@ -386,14 +359,9 @@ public class TourFrame extends JFrame {
 					}
 					tableModel.setRowCount(0);
 					listTour.forEach((tour)->{			
-							try {
-								tableModel.addRow(new Object[] {
-									tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
-								});
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+							tableModel.addRow(new Object[] {
+								tour.getId(), tour.getName(), typeRepository.getNameById(tour.getTypeId()), tour.getDescription(), tour.getStatus(), tour.getImage()
+							});
 						
 					});
 				}
@@ -405,6 +373,8 @@ public class TourFrame extends JFrame {
 					cbb_loaiTour.setSelectedIndex(0);
 				}
 			});
+			
+		
 	}
 }
 

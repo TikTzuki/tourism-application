@@ -7,6 +7,8 @@ import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 
 import com.tourism.GUI.Resources;
+import com.tourism.GUI.frames.touristgroup.TestFrame;
+import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
 
 public class TouristGroupManager extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -53,4 +55,5 @@ public class TouristGroupManager extends JPanel {
 ;		managerTable.getParent().revalidate();
 		managerTable.repaint();
 	}
+	
 }

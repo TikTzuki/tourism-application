@@ -58,6 +58,7 @@ public class TouristGroupDetailPanel extends JPanel {
 	JButton btnDelete;
 	
 	TouristGroupController touristGroupController;
+	
 	public TouristGroupDetailPanel() {
 		initData();
 		initComp();
