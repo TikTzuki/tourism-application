@@ -21,9 +21,13 @@ import com.tourism.GUI.Resources;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
 import com.tourism.GUI.util.DatePicker;
 
+
 public class TouristGroupSearchPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	GroupLayout layout;
+	
+	JLabel lblTitle;
+	
 	JLabel lblId;
 	JTextField txtId;
 	JPanel pnlId;
@@ -62,6 +66,9 @@ public class TouristGroupSearchPanel extends JPanel {
 	
 	public void initData() {	
 		layout = new GroupLayout(this);
+		
+		lblTitle = new JLabel("TÌM KIẾM");
+		
 		lblId = new JLabel("Mã đoàn");
 		txtId = new JTextField();
 		pnlId = new JPanel();
@@ -93,7 +100,7 @@ public class TouristGroupSearchPanel extends JPanel {
 	}
 	
 	public void initComp() {
-		
+		lblTitle.setFont(Resources.H3Regular);
 		cbxTourName.addItem("");
 		cbxTourName.setSelectedItem("");
 		tourController.getAll().forEach(tour -> {
@@ -155,37 +162,42 @@ public class TouristGroupSearchPanel extends JPanel {
 		layout.setAutoCreateContainerGaps(true);
 		
 		layout.setHorizontalGroup(
-				layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup()
-						.addComponent(lblId)
-						.addComponent(lblName)
-						.addComponent(lblTourName))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(txtId)
-						.addComponent(txtName)
-						.addComponent(cbxTourName))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(lblDepatureDate)
-						.addComponent(lblEndDate)
-						.addComponent(lblStatus))
-				.addGroup(layout.createParallelGroup()
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup()
-										.addComponent(txtDepatureDate)
-										.addComponent(txtEndDate))
-								.addGroup(layout.createParallelGroup()
-										.addComponent(btnDepatureDate, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS)
-										.addComponent(btnEndDate, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS)))
-						.addComponent(cbxStatus))
-				.addGap(ImageObserver.FRAMEBITS)
-				.addGroup(layout.createParallelGroup()
-						.addComponent(btnCreate)
-						.addComponent(btnSearch))
+				layout.createParallelGroup(Alignment.CENTER)
+				.addGroup(layout.createSequentialGroup()
+						.addComponent(lblTitle))
+				.addGroup(layout.createSequentialGroup()
+						.addGroup(layout.createParallelGroup()
+								.addComponent(lblId)
+								.addComponent(lblName)
+								.addComponent(lblTourName))
+						.addGroup(layout.createParallelGroup()
+								.addComponent(txtId)
+								.addComponent(txtName)
+								.addComponent(cbxTourName))
+						.addGroup(layout.createParallelGroup()
+								.addComponent(lblDepatureDate)
+								.addComponent(lblEndDate)
+								.addComponent(lblStatus))
+						.addGroup(layout.createParallelGroup()
+								.addGroup(layout.createSequentialGroup()
+										.addGroup(layout.createParallelGroup()
+												.addComponent(txtDepatureDate)
+												.addComponent(txtEndDate))
+										.addGroup(layout.createParallelGroup()
+												.addComponent(btnDepatureDate, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS)
+												.addComponent(btnEndDate, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS, Resources.SQUARE_EDGE_XXS)))
+								.addComponent(cbxStatus))
+						.addGap(ImageObserver.FRAMEBITS)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(btnCreate)
+								.addComponent(btnSearch))
+						)
 				);
 		
 		layout.setVerticalGroup(
 				layout.createParallelGroup(Alignment.CENTER)
 				.addGroup(layout.createSequentialGroup()
+						.addComponent(lblTitle)
 						.addGroup(layout.createParallelGroup(Alignment.CENTER)
 								.addComponent(lblId)
 								.addComponent(txtId)

@@ -4,7 +4,6 @@
 -- ------------------------------------------------------
 -- Server version	8.0.23
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -28,7 +27,7 @@ CREATE TABLE `cost_type` (
   `name` varchar(255) NOT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,7 +58,7 @@ CREATE TABLE `customer` (
   `gender` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +90,7 @@ CREATE TABLE `employee` (
   `phone_number` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +99,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'name1','1223343','address1','address2','address3','34 A Random Street','male','123435678','active'),(3,'lonh','657657','67h','null','null',NULL,'nam','09675786876',NULL),(4,'lonh','657657','67h','null','null','null','nam','0998089098','null'),(6,'Anh','9088987','89yutryuty','null','null','null','nữ','0987765456','09567546546null');
+INSERT INTO `employee` VALUES (1,'name1','1223343','45 ng','address2','address3','34 A Random Street','nam','0123435678','active'),(6,'Anh','9088987','89yutryuty','null','null','null','nữ','0987765456','deleted'),(9,'Hào','1223343','76 Nguyen Hue','address2','address3','34 A Random Street','nam','0123435677','active'),(10,'Hào','1223343','76 Nguyen Hue','address2','address3','34 A Random Street','nam','0123435677','deleted');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,7 +234,7 @@ CREATE TABLE `tour_cost` (
   PRIMARY KEY (`id`),
   KEY `tour_cost_ibfk_2` (`tour_id`),
   CONSTRAINT `tour_cost_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tour` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -287,6 +286,7 @@ CREATE TABLE `tourist_group` (
   `depature_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
+  `revenue` decimal(15,0) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tourist_group_tour_fk` (`tour_id`),
   CONSTRAINT `tourist_group_tour_fk` FOREIGN KEY (`tour_id`) REFERENCES `tour` (`id`)
@@ -299,7 +299,7 @@ CREATE TABLE `tourist_group` (
 
 LOCK TABLES `tourist_group` WRITE;
 /*!40000 ALTER TABLE `tourist_group` DISABLE KEYS */;
-INSERT INTO `tourist_group` VALUES (1,1,'name tour','2021-02-01','2021-02-05','Đã hoàn thành'),(2,1,'name tour 2','2020-02-01','2020-02-05','deleted'),(3,3,'name tour 3','2020-03-01','2020-03-05','Đang đi'),(4,4,'Tour 4','2020-06-06','2020-06-06','deleted'),(5,2,'Đoàn 2','2021-02-01','2021-02-09','Chưa đi');
+INSERT INTO `tourist_group` VALUES (1,1,'name tour','2021-02-01','2021-02-05','Đã hoàn thành',80),(2,1,'name tour 2','2020-02-01','2020-02-05','deleted',80),(3,3,'name tour 3','2020-03-01','2020-03-05','Đang đi',80),(4,4,'Tour 4','2020-06-06','2020-06-06','deleted',80),(5,2,'Đoàn 2','2021-02-01','2021-02-09','Chưa đi',80);
 /*!40000 ALTER TABLE `tourist_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +318,7 @@ CREATE TABLE `tourist_group_cost` (
   PRIMARY KEY (`id`),
   KEY `tourist_group_id` (`tourist_group_id`),
   CONSTRAINT `tourist_group_cost_ibfk_1` FOREIGN KEY (`tourist_group_id`) REFERENCES `tourist_group` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,7 +327,7 @@ CREATE TABLE `tourist_group_cost` (
 
 LOCK TABLES `tourist_group_cost` WRITE;
 /*!40000 ALTER TABLE `tourist_group_cost` DISABLE KEYS */;
-INSERT INTO `tourist_group_cost` VALUES (4,1,30000,'\n Phí phương tiện : Chi phí đi lại'),(5,1,50000,'');
+INSERT INTO `tourist_group_cost` VALUES (4,1,30000,'\n Phí phương tiện : Chi phí đi lại'),(5,1,50000,'\n Phí phương tiện : Chi phí đi lại\n Phí ăn uống : Chi phí ăn uống'),(6,3,900000,'\n Phí ăn uống : Chi phí ăn uống');
 /*!40000 ALTER TABLE `tourist_group_cost` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +354,7 @@ CREATE TABLE `tourist_group_customer` (
 
 LOCK TABLES `tourist_group_customer` WRITE;
 /*!40000 ALTER TABLE `tourist_group_customer` DISABLE KEYS */;
-INSERT INTO `tourist_group_customer` VALUES (1,1),(3,1),(1,2),(5,2),(1,3),(3,3);
+INSERT INTO `tourist_group_customer` VALUES (1,1),(3,1),(1,2),(5,2);
 /*!40000 ALTER TABLE `tourist_group_customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -417,4 +417,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-26 16:18:08
+-- Dump completed on 2021-03-04 19:56:10

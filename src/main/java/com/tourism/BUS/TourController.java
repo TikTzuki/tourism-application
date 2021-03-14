@@ -3,6 +3,7 @@ package com.tourism.BUS;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.tourism.DAL.LocationRepository;
 import com.tourism.DAL.TourCostRepository;
@@ -29,13 +30,18 @@ public class TourController {
 		tours = tourRepository.findAllNotDeleted();
 		tours.forEach(tour->{
 			tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
+
 			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId()));
 			tour.setTourCosts(tourCostRepository.findAllByTourId(tour.getId()));
 			tour.setType(typeRepository.findById(tour.getTypeId()).orElse(null));
+
+			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
+
 		});
 		return tours;
 	}
 	
+
 	public List<Tour> getAllNotDeleted(){
 		return null;
 	}
@@ -89,4 +95,18 @@ public class TourController {
 		tour.setStatus("deleted");
 		return tourRepository.save(tour);
 	}
+
+	public Tour getById(Long id) {
+		Tour tour = new Tour();
+		Optional<Tour> opt = tourRepository.findById(id);
+		if(opt.isPresent()) {
+			tour = opt.get();
+			tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
+			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
+			tour.setTourCosts(new TourCostRepository().findByTourId(tour.getId()));
+			return tour;
+		}
+		return tour;
+	}
+
 }

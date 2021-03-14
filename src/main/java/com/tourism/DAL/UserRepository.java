@@ -8,15 +8,6 @@ import java.util.Optional;
 
 import com.tourism.DTO.User;
 
-
-
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import com.tourism.DTO.User;
-
 public class UserRepository implements Repositories<User, Long> {
 	Connector connector = new MysqlConnector();
 	
@@ -120,4 +111,3 @@ public Optional<User> findByPhone(String phoneNumber){
 		return false;
 	}
 }
-

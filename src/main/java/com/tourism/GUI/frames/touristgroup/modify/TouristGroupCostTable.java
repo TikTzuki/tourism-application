@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import com.tourism.BUS.TouristGroupController;
 import com.tourism.DAL.TouristGroupCostRepository;
 import com.tourism.DTO.TouristGroupCost;
+import com.tourism.DTO.TouristGroupCostItem;
 import com.tourism.DTO.TouristGroup;
 import com.tourism.GUI.CustomTable;
 import com.tourism.GUI.Resources;
@@ -154,8 +155,12 @@ public class TouristGroupCostTable extends JPanel{
 		model.setRowCount(0);
 		if(TouristGroupMainPanel.selectedTouristGroup.getTouristGroupCosts() != null )
 			TouristGroupMainPanel.selectedTouristGroup.getTouristGroupCosts().forEach(cost ->{
+				String description = "";
+				for(TouristGroupCostItem item: cost.getDescription()) {
+					description+=item.getName()+" | Gía "+item.getCost()+" | SL: "+item.getQuantity()+"\n";
+				}
 				model.addRow(new Object[] {
-						cost.getId(), cost.getTotalPrice(), cost.getDescription()
+						cost.getId(), cost.getTotalPrice(), description
 				});
 			});;
 	}

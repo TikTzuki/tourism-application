@@ -2,7 +2,10 @@ package com.tourism.GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -12,7 +15,7 @@ import com.tourism.GUI.util.IconUtil;
 import jdk.jfr.Description;
 
 public class Resources {
-	public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 	
 	public static Color PRIMARY = new Color(249, 247, 247);
 	public static Color PRIMARY_DARK = new Color(219, 226, 239);
@@ -26,7 +29,7 @@ public class Resources {
 	public static int SQUARE_EDGE_XXS = 34;
 	public static int SQUARE_EDGE_XS = 40;
 	public static int SQUARE_EDGE_S = 46;
-	public static int SQUARE_EDGE_XXL = 400;
+	public static int SQUARE_EDGE_XXL = 600;
 
 	public static int BUTTON_WIDTH = 100;
 	
@@ -47,6 +50,8 @@ public class Resources {
 	
 	public static int DETAIL_WIDTH = 1000;
 	public static int DETAIL_HEIGHT = 200;
+	public static int DETAIL_HEIGHT_XL = 500;
+	public static int DETAIL_HEIGHT_XXL = 600;
 
 	public static Dimension MAIN_CONTENT = new Dimension(MAIN_CONTENT_WIDTH, MAIN_CONTENT_HEIGHT);
 	
@@ -73,6 +78,7 @@ public class Resources {
 	
 	public static ImageIcon TOURISM_LOGO = IconUtil.loadIcon("src/images/Tourism Logo.png", 200, 50);
 	public static ImageIcon CALENDAR_ICON = IconUtil.loadIcon("src/images/noun_Calendar.png", 28, 28);
+	public static ImageIcon CALENDAR_ICON_S = IconUtil.loadIcon("src/images/noun_Calendar.png", 20, 20);
 	public static ImageIcon ADD_ICON = IconUtil.loadIcon("src/images/add.png", 24, 24);
 	public static ImageIcon ADD_ICON_S = IconUtil.loadIcon("src/images/add.png", 18, 18);
 	public static ImageIcon DASHBOARD = IconUtil.loadIcon("src/images/dashboard.png", 28, 28);
@@ -83,6 +89,9 @@ public class Resources {
 	public static ImageIcon EMPLOYEE= IconUtil.loadIcon("src/images/employee.png", 28, 28);
 
 	
+	public static Font H2Blod = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+	public static Font H3Regular = new Font(Font.SANS_SERIF, 0, 20);
+	public static Font BlodNumber = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 	public static void main(String[] args) {
 	}
 }

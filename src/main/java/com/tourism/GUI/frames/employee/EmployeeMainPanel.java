@@ -24,10 +24,12 @@ import com.tourism.DTO.Employee;
 import com.tourism.GUI.CustomTable;
 import com.tourism.GUI.Resources;
 import com.tourism.GUI.frames.tour.TourFrame;
+import com.tourism.GUI.util.ConfirmDialog;
 import com.tourism.GUI.util.MessageDialog;
 import com.tourism.service.Validation;
 
 public class EmployeeMainPanel extends JPanel{
+	String ERROR_MESSAGE;
 	EmployeeController employeeController; 
 	static Employee selectedEmployee;
 	JPanel pnlEmployee;
@@ -91,31 +93,34 @@ public class EmployeeMainPanel extends JPanel{
 	}
 	
 	public void initComp() {
+		txtId.setEditable(false);
 		btnCreate.setBackground(Resources.PRIMARY_DARK);
 		btnCreate.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mousePressed(MouseEvent e) {			
-			if(!validateInput()) {
-				new MessageDialog("Thông điền vào không hợp lệ");
-				return;
+			@Override
+			public void mousePressed(MouseEvent e) {			
+				if(!validateInput()) {
+					new MessageDialog(ERROR_MESSAGE);
+					return;
+				}
+				commitSelectedEmployee();
+				employeeController.createEmployee(selectedEmployee);
+				loadTable();
 			}
-			commitSelectedEmployee();
-			employeeController.createEmployee(selectedEmployee);
-			loadTable();
-		}
 		});
 		btnDelete.setBackground(Resources.PRIMARY_DARK);
 		btnDelete.addMouseListener(new MouseAdapter() {
-		@Override
-		public void mousePressed(MouseEvent e) {
-			if(!validateInput()) {
-				new MessageDialog("Thông điền vào không hợp lệ");
-				return;
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(!validateInput()) {
+					new MessageDialog(ERROR_MESSAGE);
+					return;
+				}
+				if(new ConfirmDialog("Bạn chắc chắn muốn xóa?").confirm()) {				
+					commitSelectedEmployee();
+					employeeController.deleteEmployee(selectedEmployee.getId());
+					loadTable();
+				}
 			}
-			commitSelectedEmployee();
-			employeeController.deleteEmployee(selectedEmployee.getId());
-			loadTable();
-		}
 		});
 		
 		btnSave.setBackground(Resources.PRIMARY_DARK);
@@ -123,7 +128,7 @@ public class EmployeeMainPanel extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(!validateInput()) {
-					new MessageDialog("Thông tin điền vào không hợp lệ");
+					new MessageDialog(ERROR_MESSAGE);
 					return;				
 				}
 				commitSelectedEmployee();
@@ -235,18 +240,16 @@ public class EmployeeMainPanel extends JPanel{
 	}
 	
 	public boolean validateInput() {
-		if(!Validation.checkDigit(txtId.getText())) {
-			System.out.print("ID");
+		if(!Validation.checkPhone_Number(txtPhoneNumber.getText()) || txtPhoneNumber.equals(null)) {
+			ERROR_MESSAGE = "Số điện thoại không đúng";
 			return false;
-		}
-		if(!Validation.checkPhone_Number(txtPhoneNumber.getText()) || txtPhoneNumber.equals(null))
-			return false;
+			}
 		return true;
 	}
 	
 	public void loadTable() {
 		model.setRowCount(0);		
-		for (Iterator<Employee> itr = employeeController.getAll().iterator(); itr.hasNext();) {
+		for (Iterator<Employee> itr = employeeController.getAllNotDelete().iterator(); itr.hasNext();) {
 			Employee emp = itr.next();
 			model.addRow(new Object[]{emp.getId(), emp.getName(), emp.getIdentityCard(), emp.getAddress1(), emp.getGender(), emp.getPhoneNumber()});
 		}

@@ -13,15 +13,28 @@ public class EmployeeController {
 	}
 	
 	public List<Employee> getAll(){
-		return employeeRepository.findAll();
+		List<Employee> emps = employeeRepository.findAll();
+		return emps;
+	}
+	
+	public List<Employee> getAllNotDelete(){
+		List<Employee> emps = employeeRepository.findAll();
+		emps.removeIf(emp -> (emp.getStatus().equals("deleted")));
+		return emps;
 	}
 	
 	public Employee getById(Long id) {
 		return employeeRepository.findById(id).get();
 	}
 	
+	public Employee getByIdNotDelete(Long id) {
+		Employee emp = employeeRepository.findById(id).get();
+		return emp.getStatus().equals("deleted")? new Employee() : emp;
+	}
+	
 	public void createEmployee(Employee employee) {
 		employee.setId(null);
+		employee.setStatus("active");
 		employeeRepository.save(employee);
 	}
 
@@ -29,7 +42,9 @@ public class EmployeeController {
 		employeeRepository.save(employee);
 	}
 	public void deleteEmployee(Long id) {
-		employeeRepository.deleteById(id);
+		Employee emp = employeeRepository.findById(id).get();
+		emp.setStatus("deleted");
+		employeeRepository.save(emp);
 	}
 	
 }

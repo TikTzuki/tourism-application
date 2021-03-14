@@ -1,4 +1,4 @@
-package com.tourism.GUI.frames.analysis;
+package com.tourism.GUI.frames.analysis.Employee;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -38,10 +38,10 @@ public class AnalysisEmployeeActivity extends JPanel {
 	
 	JLabel lblEndDate;
 	JTextField txtEndDate;
-	JButton btnEnDate;
+	JButton btnEndDate;
 	
 	JButton btnAnalysis;
-	JPanel pnlActivity;
+	JPanel pnlAnalysis;
 	
 	DefaultTableModel model;
 	JTable tbl;
@@ -62,10 +62,10 @@ public class AnalysisEmployeeActivity extends JPanel {
 	
 	lblEndDate = new JLabel("Đến:");
 	txtEndDate = new JTextField();
-	btnEnDate = new JButton(Resources.CALENDAR_ICON);
+	btnEndDate = new JButton(Resources.CALENDAR_ICON);
 	
 	btnAnalysis = new JButton("Thống kê");
-	pnlActivity = new JPanel();
+	pnlAnalysis = new JPanel();
 	
 	model = new DefaultTableModel(new Object[] {"Mã", "Tên", "Sđt", "Địa chỉ", "Số lần đi tour"}, 0);
 	tbl = new CustomTable(model);
@@ -88,9 +88,9 @@ public class AnalysisEmployeeActivity extends JPanel {
 		
 		txtEndDate.setText(Resources.simpleDateFormat.format(new Date()));
 		txtEndDate.setPreferredSize(Resources.INPUT_TYPE_DATE);
-		btnEnDate.setPreferredSize(Resources.SQUARE_XXS);
-		btnEnDate.setBackground(Resources.PRIMARY_DARK);
-		btnEnDate.addMouseListener(new MouseAdapter() {
+		btnEndDate.setPreferredSize(Resources.SQUARE_XXS);
+		btnEndDate.setBackground(Resources.PRIMARY_DARK);
+		btnEndDate.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
 				txtEndDate.setText(new DatePicker().getPickedDate("yyyy-MM-dd"));
 			}
@@ -104,14 +104,14 @@ public class AnalysisEmployeeActivity extends JPanel {
 				loadTable();
 			}
 		});
-		pnlActivity.add(lblStartDate);
-		pnlActivity.add(txtStartDate);
-		pnlActivity.add(btnStartDate);
-		pnlActivity.add(lblEndDate);
-		pnlActivity.add(txtEndDate);
-		pnlActivity.add(btnEnDate);
-		pnlActivity.add(btnAnalysis);
-		pnlActivity.setBackground(Resources.PRIMARY);
+		pnlAnalysis.add(lblStartDate);
+		pnlAnalysis.add(txtStartDate);
+		pnlAnalysis.add(btnStartDate);
+		pnlAnalysis.add(lblEndDate);
+		pnlAnalysis.add(txtEndDate);
+		pnlAnalysis.add(btnEndDate);
+		pnlAnalysis.add(btnAnalysis);
+		pnlAnalysis.setBackground(Resources.PRIMARY);
 		//Table
 		
 		loadTable();
@@ -122,10 +122,10 @@ public class AnalysisEmployeeActivity extends JPanel {
 		layout.setAutoCreateContainerGaps(true);
 		layout.setAutoCreateGaps(true);
 		layout.setHorizontalGroup(layout.createParallelGroup()
-				.addComponent(pnlActivity)
+				.addComponent(pnlAnalysis)
 				.addComponent(pnlTable));
 		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addComponent(pnlActivity, Resources.INPUT_HEIGHT_XXL, Resources.INPUT_HEIGHT_XXL, Resources.INPUT_HEIGHT_XXL)
+				.addComponent(pnlAnalysis, Resources.INPUT_HEIGHT_XXL, Resources.INPUT_HEIGHT_XXL, Resources.INPUT_HEIGHT_XXL)
 				.addComponent(pnlTable));
 		this.setLayout(layout);
 		this.setBackground(Resources.PRIMARY_DARK);
@@ -146,7 +146,7 @@ public class AnalysisEmployeeActivity extends JPanel {
 					emp.getId(),
 					emp.getName(),
 					emp.getPhoneNumber(),
-					emp.getStreet() + ", " + emp.getAddress3() + ", " + emp.getAddress2() + ", " + emp.getAddress1(),
+					emp.getAddress1(),
 					emp.getTouristGroups().size()});
 		});
 		tbl.getParent().revalidate();

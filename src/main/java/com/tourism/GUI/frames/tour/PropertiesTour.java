@@ -200,9 +200,7 @@ public class PropertiesTour extends JFrame {
 				try {
 					PropertiesTour frame = new PropertiesTour();
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				} catch (Exception e){}
 			}
 		});
 	}

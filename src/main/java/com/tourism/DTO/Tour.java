@@ -35,4 +35,3 @@ public class Tour {
 	Location location;
 	List<Long> idLocation;
 }
-

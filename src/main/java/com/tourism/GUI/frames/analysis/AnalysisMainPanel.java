@@ -15,6 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.tourism.GUI.Resources;
+import com.tourism.GUI.frames.analysis.Employee.AnalysisEmployeeActivity;
+import com.tourism.GUI.frames.analysis.TourOperationSituation.TourOperationSituation;
+import com.tourism.GUI.frames.analysis.TourOperationSituation.TourOperationSituationMain;
+import com.tourism.GUI.frames.analysis.TouristGroup.AnalysisTouristGroup;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +46,8 @@ public class AnalysisMainPanel extends JPanel{
 	
 	public void initComp() {
 		comboItems.add(new ComboItemPanel("Số lần đi tour của nhân viên", new AnalysisEmployeeActivity()));
-		comboItems.add(new ComboItemPanel("Hoạt động của tour", new AnalysisTour()));
+		comboItems.add(new ComboItemPanel("Doanh thu tour", new TourOperationSituationMain()));
+		comboItems.add(new ComboItemPanel("Đoàn du lịch", new AnalysisTouristGroup()));
 		comboItems.forEach(comboItem -> {
 		cbxAnalysis.addItem(comboItem.getName());
 		});
@@ -66,7 +71,6 @@ public class AnalysisMainPanel extends JPanel{
 		
 		pnlMainContent.add(comboItems.get(0).getPanel());
 		pnlMainContent.setPreferredSize(new Dimension(Resources.MAIN_CONTENT_WIDTH, Resources.MAIN_CONTENT_HEIGHT-Resources.INPUT_HEIGHT_M));
-		pnlMainContent.setBackground(Resources.SECONDARY);
 		this.add(pnlAnalyisCombobox);
 		this.add(pnlMainContent);
 		this.setPreferredSize(Resources.MAIN_CONTENT);

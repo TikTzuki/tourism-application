@@ -21,6 +21,6 @@ public class TouristGroupCost {
   protected Long id;
   Long touristGroupId;
   Double totalPrice;
-  String description;
+  List<TouristGroupCostItem> description;
   TouristGroup touristGroups;
 }

@@ -49,18 +49,21 @@ public class TouristGroupRepository implements Repositories<TouristGroup, Long> 
 				updateQuery.append("name = \"" + e.getName() + "\", ");
 				updateQuery.append("depature_date = \"" + Resources.simpleDateFormat.format(e.getDepatureDate()) + "\", ");
 				updateQuery.append("end_date = \"" + Resources.simpleDateFormat.format(e.getEndDate()) + "\", ");
-				updateQuery.append("status = \"" + e.getStatus() + "\" ");
+				updateQuery.append("status = \"" + e.getStatus() + "\", ");
+				updateQuery.append("revenue = \"" + e.getRevenue() + "\" ");
 				updateQuery.append("WHERE id = \"" + e.getId() + "\" ;");
 				logger.info(updateQuery.toString());
 				this.connector.executeUpdate(updateQuery.toString());
 			} else {
 				StringBuilder insertQuery = new StringBuilder(
-						"INSERT INTO tourist_group(`tour_id`, `name`, `depature_date`, `end_date`, `description`, `food_price`, `transport_price`, `hotel_price`, `other_price`, `status`) VALUES ");
+						"INSERT INTO tourist_group(`tour_id`, `name`, `depature_date`, `end_date`, `status`, `revenue`) VALUES ");
 				insertQuery.append("( \"" + e.getTourId() + "\", ");
 				insertQuery.append("\"" + e.getName() + "\", ");
 				insertQuery.append("\"" + Resources.simpleDateFormat.format(e.getDepatureDate()) + "\", ");
 				insertQuery.append("\"" + Resources.simpleDateFormat.format(e.getEndDate()) + "\", ");
-				insertQuery.append("\"" + e.getStatus() + "\"); ");
+				insertQuery.append("\"" + e.getStatus() + "\", ");
+				insertQuery.append("\"" + e.getRevenue() + "\"); ");
+				System.out.println(insertQuery.toString());
 				connector.executeUpdate(insertQuery.toString());
 				ResultSet returnedResultSet = connector
 						.executeQuery("SELECT * FROM tourist_group ORDER BY `id` DESC LIMIT 1");
@@ -200,6 +203,7 @@ public class TouristGroupRepository implements Repositories<TouristGroup, Long> 
 				tg.setDepatureDate(rs.getDate("depature_date"));
 				tg.setEndDate(rs.getDate("end_date"));
 				tg.setStatus(rs.getString("status"));
+				tg.setRevenue(rs.getDouble("revenue"));
 				touristGroups.add(tg);
 			}
 		} catch (Exception e) {
@@ -231,10 +235,11 @@ public class TouristGroupRepository implements Repositories<TouristGroup, Long> 
 		return findAllById(ids);
 	}
 	
-	public List<TouristGroup> findAllByTourId(Long id){
+	public List<TouristGroup> findAllByTourId(Long id, boolean includeDeleted){
 		StringBuilder query = new StringBuilder(
 				"SELECT * FROM tourist_group tg WHERE tg.tour_id = \"");
-		query.append(id + "\" ;");
+		query.append(id + "\"");
+		query.append(includeDeleted ? ";" : " AND status<>\"deleted\";");
 		ResultSet rs = connector.executeQuery(query.toString());
 		return extractResultSet(rs);
 	}

@@ -21,6 +21,7 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 	public Employee save(Employee entity) {
 		List<Employee> emps = new ArrayList<Employee>();
 		emps.add(entity);
+		System.out.println(emps);
 		return saveAll(emps).get(0);
 	}
 
@@ -44,7 +45,7 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 				this.connector.executeUpdate(updateQuery.toString());
 			} else {
 				StringBuilder insertQuery = new StringBuilder(
-						"INSERT INTO `employee` (`name`, `identity_card`, `address1`, `address2`, `address3`, `gender`, `phone_number`, `status`) VALUES ");
+						"INSERT INTO `employee` (`name`, `identity_card`, `address1`, `address2`, `address3`, `street`, `gender`, `phone_number`, `status`) VALUES ");
 				insertQuery.append("( \"" + e.getName() + "\", ");
 				insertQuery.append("\"" + e.getIdentityCard() + "\", ");
 				insertQuery.append("\"" + e.getAddress1() + "\", ");
@@ -52,8 +53,9 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 				insertQuery.append("\"" + e.getAddress3() + "\", ");
 				insertQuery.append("\""+e.getStreet() + "\", ");
 				insertQuery.append("\"" + e.getGender() + "\", ");
-				insertQuery.append("\"" + e.getPhoneNumber() + "\" ");
+				insertQuery.append("\"" + e.getPhoneNumber() + "\", ");
 				insertQuery.append("\"" + e.getStatus() + "\" ); ");
+				System.out.println(insertQuery);
 				connector.executeUpdate(insertQuery.toString());
 				ResultSet returnedResultSet = connector
 						.executeQuery("SELECT * FROM employee ORDER BY `id` DESC LIMIT 1");
@@ -97,7 +99,9 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 		ids.forEach(id -> {
 			query.append(" id=\"" + id + "\" OR ");
 		});
-		return extractResultSet(connector.executeQuery(query.substring(0, query.lastIndexOf("OR"))));
+		return extractResultSet(connector.executeQuery(
+					query.substring(0, query.lastIndexOf("OR"))
+				));
 	}
 
 	@Override
@@ -114,10 +118,7 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 
 	@Override
 	public void deleteById(Long id) {
-		String deleteRelationShip = "DELETE FROM position_in_tour WHERE employee_id = \"" + id + "\" ;";
-		String query = "DELETE FROM employee WHERE id = \"" + id + "\" ;";
-		this.connector.executeUpdate(deleteRelationShip);
-		this.connector.executeUpdate(query);
+
 	}
 
 	@Override

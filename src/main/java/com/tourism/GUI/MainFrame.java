@@ -107,10 +107,12 @@ public class MainFrame extends JFrame {
 
 		// Selected
 		functionSelected = new JLabel("--------\\\\/--------");
+		functionSelected.setFont(Resources.H3Regular);
+		functionSelected.setForeground(Resources.SECONDARY_DARK);
 		functionSelected.setBounds(650, 0, 300, 50);
 		// User
 		JLabel lblUser = new JLabel("Hello, " + user.getName());
-		lblUser.setBounds(1050, 0, 200, 50);
+		lblUser.setBounds(1150, 0, 200, 50);
 
 		pnlTopBar.add(lblLogo);
 		pnlTopBar.add(functionSelected);

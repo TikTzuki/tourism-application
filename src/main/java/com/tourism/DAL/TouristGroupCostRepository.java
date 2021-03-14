@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import com.tourism.DTO.TouristGroup;
 import com.tourism.DTO.TouristGroupCost;
+import com.tourism.service.JsonTouristCost;
 
 public class TouristGroupCostRepository implements Repositories<TouristGroupCost, Long>{
 	Connector connector;
@@ -29,15 +30,17 @@ public class TouristGroupCostRepository implements Repositories<TouristGroupCost
 				StringBuilder updateQuery = new StringBuilder("UPDATE tourist_group_cost SET ");
 				updateQuery.append("tourist_group_id = \"" + e.getTouristGroupId() + "\", ");
 				updateQuery.append("total_price = \"" + e.getTotalPrice() + "\", ");
-				updateQuery.append("description = \"" + e.getDescription() + "\" ");
+				updateQuery.append("description = \'" + JsonTouristCost.formatToJsonArray(e.getDescription()) + "\' ");
 				updateQuery.append("WHERE id = \"" + e.getId() + "\" ;");
+				System.out.println(updateQuery.toString());
 				this.connector.executeUpdate(updateQuery.toString());
 			} else {
 				StringBuilder insertQuery = new StringBuilder(
 						"INSERT INTO tourist_group_cost(`tourist_group_id`, `total_price`, `description`) VALUES ");
 				insertQuery.append("( \"" + e.getTouristGroupId() + "\", ");
 				insertQuery.append("\"" + e.getTotalPrice() + "\", ");
-				insertQuery.append("\"" + e.getDescription() + "\"); ");
+				insertQuery.append("\'" + JsonTouristCost.formatToJsonArray(e.getDescription()) + "\'); ");
+				System.out.println(insertQuery.toString());
 				connector.executeUpdate(insertQuery.toString());
 				ResultSet returnedResultSet = connector
 						.executeQuery("SELECT * FROM tourist_group_cost ORDER BY `id` DESC LIMIT 1;");
@@ -139,7 +142,7 @@ public class TouristGroupCostRepository implements Repositories<TouristGroupCost
 				TGCost.setId(Long.valueOf(rs.getLong("id")));
 				TGCost.setTouristGroupId(Long.valueOf(rs.getLong("tourist_group_id")));
 				TGCost.setTotalPrice(Double.valueOf(rs.getDouble("total_price")));
-				TGCost.setDescription(rs.getString("description"));
+				TGCost.setDescription(JsonTouristCost.parseToTouristGroupCostItems(rs.getString("description")));
 				touristGroupCost.add(TGCost);
 			}
 		} catch (Exception e) {

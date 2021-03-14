@@ -25,6 +25,7 @@ public class TouristGroup {
 	protected Date depatureDate;
 	protected Date endDate;
 	protected String status;
+	protected Double revenue;
 	protected List<Customer> customers;
 	protected Tour tour;
 	protected List<TourPosition> tourPositions;

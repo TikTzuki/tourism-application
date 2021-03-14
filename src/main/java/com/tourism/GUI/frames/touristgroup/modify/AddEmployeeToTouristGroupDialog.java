@@ -67,7 +67,7 @@ public class AddEmployeeToTouristGroupDialog {
 			cbxPosition.addItem(position.getId()+". "+position.getName());
 		});
 		
-		employeeController.getAll().forEach(emp -> {
+		employeeController.getAllNotDelete().forEach(emp -> {
 			model.addRow(new Object[] {
 					emp.getId(),
 					emp.getName(),
