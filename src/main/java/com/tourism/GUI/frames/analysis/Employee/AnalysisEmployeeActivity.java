@@ -28,6 +28,8 @@ import com.tourism.DTO.Employee;
 import com.tourism.GUI.CustomTable;
 import com.tourism.GUI.Resources;
 import com.tourism.GUI.util.DatePicker;
+import com.tourism.GUI.util.MessageDialog;
+import com.tourism.service.Validation;
 
 public class AnalysisEmployeeActivity extends JPanel {
 	AnalysisController analysisController;
@@ -56,18 +58,18 @@ public class AnalysisEmployeeActivity extends JPanel {
 	public void initData() {
 	analysisController = new AnalysisController();
 	employees = new ArrayList<>();
-	lblStartDate = new JLabel("Từ:");
+	lblStartDate = new JLabel("Từ: ");
 	txtStartDate = new JTextField();
 	btnStartDate = new JButton(Resources.CALENDAR_ICON);
 	
-	lblEndDate = new JLabel("Đến:");
+	lblEndDate = new JLabel("Đến: ");
 	txtEndDate = new JTextField();
 	btnEndDate = new JButton(Resources.CALENDAR_ICON);
 	
 	btnAnalysis = new JButton("Thống kê");
 	pnlAnalysis = new JPanel();
 	
-	model = new DefaultTableModel(new Object[] {"Mã", "Tên", "Sđt", "Địa chỉ", "Số lần đi tour"}, 0);
+	model = new DefaultTableModel(new Object[] {"Mã", "Họ tên", "Số điện thoại", "Địa chỉ", "Số lần đi tour"}, 0);
 	tbl = new CustomTable(model);
 	scroller = new JScrollPane(tbl);
 	pnlTable = new JPanel(new BorderLayout());
@@ -101,6 +103,7 @@ public class AnalysisEmployeeActivity extends JPanel {
 		btnAnalysis.setForeground(Resources.SECONDARY_DARK);
 		btnAnalysis.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
+				validate();
 				loadTable();
 			}
 		});
@@ -130,6 +133,18 @@ public class AnalysisEmployeeActivity extends JPanel {
 		this.setLayout(layout);
 		this.setBackground(Resources.PRIMARY_DARK);
 		this.setPreferredSize(new Dimension(Resources.MAIN_CONTENT_WIDTH, Resources.MAIN_CONTENT_HEIGHT-Resources.INPUT_HEIGHT_L));
+	}
+	
+	private void validateDate() {
+		String errorMess = "";
+		if(!Validation.checkDate(txtStartDate.getText()) || !Validation.checkDate(txtEndDate.getText())) {
+			errorMess += "Sai định dạng yyyy-MM-dd";
+		} else {
+			if(!Validation.isBefore(txtStartDate.getText(), txtEndDate.getText()))
+				errorMess += "Ngày bắt đầu phải trước ngày kết thúc";
+		}
+		if(!errorMess.equals(""))
+			new MessageDialog(errorMess);
 	}
 	
 	public void loadTable() {

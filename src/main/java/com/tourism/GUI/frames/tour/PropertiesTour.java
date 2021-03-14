@@ -470,8 +470,8 @@ public class PropertiesTour extends JFrame {
 				tourCost.setId(tourCostRepository.getIdByTourId(Long.parseLong(lbl_maTour.getText())));
 				tourCost.setTourId(Long.parseLong(lbl_maTour.getText()));
 				tourCost.setPrice(Double.parseDouble(txt_giaTour.getText()));
-				tourCost.setPriceFromTime(Convert(date_giaTuNgay.getDate()).toString());
-				tourCost.setPriceToTime(Convert(date_giaDenNgay.getDate()).toString());
+				tourCost.setPriceFromTime(Convert(date_giaTuNgay.getDate()));
+				tourCost.setPriceToTime(Convert(date_giaDenNgay.getDate()));
 				tourCostRepository.save(tourCost);
 				//save TourLocation
 				tourLocationRepository.deleteAllById(Long.parseLong(lbl_maTour.getText()));

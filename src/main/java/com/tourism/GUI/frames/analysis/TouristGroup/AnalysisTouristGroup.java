@@ -24,6 +24,8 @@ import com.tourism.GUI.CustomTable;
 import com.tourism.GUI.Resources;
 import com.tourism.GUI.frames.touristgroup.modify.TouristGroupCustomerTable;
 import com.tourism.GUI.util.DatePicker;
+import com.tourism.GUI.util.MessageDialog;
+import com.tourism.service.Validation;
 
 public class AnalysisTouristGroup extends JPanel{
 	AnalysisController analysisController;
@@ -70,7 +72,7 @@ public class AnalysisTouristGroup extends JPanel{
 		btnAnalysis = new JButton("Thống kê");
 		pnlAnalysis = new JPanel();
 		
-		model = new DefaultTableModel(new Object[] {"Mã", "Tên đoàn", "Tour", "Ngày khởi hành", "Ngày kết thúc", "Số khách", "Trạng thái", "Tổng thu", "Chi phí", "Lợi nhuận"}, 0); 
+		model = new DefaultTableModel(new Object[] {"Mã", "Tên đoàn", "Tour", "Ngày khởi hành", "Ngày kết thúc", "Số khác", "Trạng thái", "Doanh thu", "Chi phí", "Lợi nhuận"}, 0); 
 		tbl = new CustomTable(model);
 		scroller = new JScrollPane(tbl);
 		pnlTable = new JPanel(new BorderLayout());
@@ -113,6 +115,7 @@ public class AnalysisTouristGroup extends JPanel{
 		btnAnalysis.setForeground(Resources.SECONDARY_DARK);
 		btnAnalysis.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
+				validateDate();
 				loadTable();
 				loadBottomBar();
 			}
@@ -167,6 +170,17 @@ public class AnalysisTouristGroup extends JPanel{
 		this.setPreferredSize(new Dimension(Resources.MAIN_CONTENT_WIDTH, Resources.MAIN_CONTENT_HEIGHT-Resources.INPUT_HEIGHT_L));
 	}
 	
+	private void validateDate() {
+		String errorMess = "";
+		if(!Validation.checkDate(txtStartDate.getText()) || !Validation.checkDate(txtEndDate.getText())) {
+			errorMess += "Sai dinh dang yyyy-MM-dd";
+		} else {
+			if(!Validation.isBefore(txtStartDate.getText(), txtEndDate.getText()))
+				errorMess += "Ngay bat dau phai truoc ngay ket thuc";
+		}
+		if(!errorMess.equals(""))
+			new MessageDialog(errorMess);
+	}
 	public void loadTable() {
 		List<Object[]> rows = new ArrayList<Object[]>();
 		try {

@@ -53,7 +53,7 @@ public class TourOperationSituationDetail extends JPanel{
 	btnBack = new JButton("Quay lại");
 	pnlControl = new JPanel();
 	
-	model = new DefaultTableModel(new Object[] {"#", "Đoàn đi", "Số khách", "Giá tour", "Doanh thu", "Tổng chi phí", "Lãi"}, 0);
+	model = new DefaultTableModel(new Object[] {"#", "Tên đoàn", "Số khách", "Giá tour", "Doanh thu", "Chi phí", "Lãi"}, 0);
 	tbl = new JTable(model);
 	scroller = new JScrollPane(tbl);
 	

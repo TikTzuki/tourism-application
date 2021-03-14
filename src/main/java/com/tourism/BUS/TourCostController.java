@@ -1,11 +1,14 @@
 package com.tourism.BUS;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import com.tourism.DAL.TourCostRepository;
 import com.tourism.DTO.TourCost;
+import com.tourism.GUI.Resources;
 
 public class TourCostController {
 	TourCostRepository tourCostRepository = new TourCostRepository();
@@ -46,4 +49,16 @@ public class TourCostController {
 		return tourCost;
 	}
 	
+	public List<TourCost> getByTourIdSortFromNow(Long tourId){
+		List<TourCost> tourCosts = tourCostRepository.findAllByTourId(tourId);
+		Collections.sort(tourCosts, (a,b)->{
+				int state1 = (a.getPriceFromTime().compareTo(
+						new Date()));
+				int state2 = (new Date().compareTo(a.getPriceToTime()));
+				if(state1 < 0 && state2 < 0)
+					return -1;
+				return 1;
+		});
+		return tourCosts;
+	}
 }

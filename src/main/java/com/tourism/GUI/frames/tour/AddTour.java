@@ -356,8 +356,8 @@ public class AddTour extends JFrame {
 				//String from_date = Convert(date_from.getDate().toString());
 				tourCost.setTourId(Long.parseLong(lbl_maTour.getText()));
 				tourCost.setPrice(Double.parseDouble(txt_giaTour.getText()));
-				tourCost.setPriceFromTime(Convert(date_from.getDate()).toString());
-				tourCost.setPriceToTime(Convert(date_to.getDate()).toString());
+				tourCost.setPriceFromTime(Convert(date_from.getDate()));
+				tourCost.setPriceToTime(Convert(date_to.getDate()));
 				tourCostRepository.save(tourCost);
 				//save TourLocation
 				for(int i = 0; i < tableModel2.getRowCount() ; i++)
