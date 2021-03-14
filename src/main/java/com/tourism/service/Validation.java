@@ -33,7 +33,11 @@ public class Validation {
 			return true;
 		return false;
 	}
-	
+	public static boolean checkDigitWithFloatPoint(String digitString) {
+		if(digitString.matches("[+-]?([0-9]*[.])?[0-9]+"))
+			return true;
+		return false;
+	}
 	public static boolean isBefore(String dateBefore, String dateAfter) {
 		SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd");
 		try {

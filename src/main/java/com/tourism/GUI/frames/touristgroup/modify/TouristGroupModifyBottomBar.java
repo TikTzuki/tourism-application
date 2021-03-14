@@ -52,7 +52,6 @@ public class TouristGroupModifyBottomBar extends JPanel {
 		btnSave.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
 				if(!TouristGroupBasicModifyPanel.commitToSelectedTouristGroup()) {
-					new MessageDialog("ThÔng tin không đúng");
 					return;}
 				touristGroupController.saveWithRelationships(TouristGroupMainPanel.selectedTouristGroup);
 				TouristGroupMainPanel.initManagerPanel();

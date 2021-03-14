@@ -99,7 +99,7 @@ public class LoginFrame extends JFrame{
 			new MessageDialog("Thông tin đăng nhập sai");
 		} else {
 			this.dispose();
-			mainFrame = new MainFrame(user);
+			mainFrame = new MainFrameV2(user);
 		}
 	}
 	

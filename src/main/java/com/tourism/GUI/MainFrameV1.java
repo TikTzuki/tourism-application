@@ -24,6 +24,7 @@ import com.tourism.GUI.frames.customer.CustomerMainPanel;
 import com.tourism.GUI.frames.employee.EmployeeMainPanel;
 import com.tourism.GUI.frames.tour.TourFrame;
 import com.tourism.GUI.frames.tour.TourMainPanel;
+import com.tourism.GUI.frames.tourcatalog.TourCatalogMainPanel;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
 import com.tourism.GUI.util.IconUtil;
 
@@ -32,7 +33,7 @@ import lombok.Data;
 /**
  * MainFrame
  */
-public class MainFrame extends JFrame {
+public class MainFrameV1 extends JFrame {
 	static final long serialVersionUID = 4L;
 	private User user;
 	// Left side menu
@@ -45,6 +46,7 @@ public class MainFrame extends JFrame {
 
 	// Array Jpanel nội dung chính
 	JPanel[] pnlMainContents;
+	public static JPanel pnlTourCatalog;
 	public static JPanel pnlTourManager;
 	public static JPanel pnlTouristGroupManager;
 	public static JPanel pnlAnalysis;
@@ -52,7 +54,7 @@ public class MainFrame extends JFrame {
 	public static JPanel pnlCustomerManager;
 	JLayeredPane layeredContent = new JLayeredPane();
 
-	public MainFrame(User user) {
+	public MainFrameV1(User user) {
 		super();
 		this.user = user; 
 		initData();
@@ -66,16 +68,17 @@ public class MainFrame extends JFrame {
 		pnlTopBar = new JPanel(null);
 		functionSelected = new JLabel("--------\\/--------");
 		
-		titleMenuItems = new String[] {"Thống kê", "Quản lý tour", "Quản lý đoàn", "Quản lý nhân viên", "Quản lý khách hàng"};
-		iconMenuItems = new ImageIcon[] {Resources.DASHBOARD, Resources.TRAVEL, Resources.NETWORK, Resources.EMPLOYEE, Resources.TRAVELER};
+		titleMenuItems = new String[] {"Bảng giá tour" ,"Thống kê", "Quản lý tour", "Quản lý đoàn", "Quản lý nhân viên", "Quản lý khách hàng"};
+		iconMenuItems = new ImageIcon[] {Resources.TOUR_CATALOG, Resources.DASHBOARD, Resources.TRAVEL, Resources.NETWORK, Resources.EMPLOYEE, Resources.TRAVELER};
 		pnlMenuItems = new MenuItem[titleMenuItems.length];
 		// Array Jpanel nội dung chính
+		pnlTourCatalog = new TourCatalogMainPanel();
 		pnlTourManager = new TourMainPanel();
 		pnlTouristGroupManager = new TouristGroupMainPanel();
 		pnlAnalysis = new AnalysisMainPanel();
 		pnlEmployeeManager = new EmployeeMainPanel();
 		pnlCustomerManager = new CustomerMainPanel();
-		pnlMainContents = new JPanel[] { pnlAnalysis, pnlTourManager, pnlTouristGroupManager, pnlEmployeeManager, pnlCustomerManager };
+		pnlMainContents = new JPanel[] {pnlTourCatalog, pnlAnalysis, pnlTourManager, pnlTouristGroupManager, pnlEmployeeManager, pnlCustomerManager };
 		layeredContent = new JLayeredPane();
 	}
 	
@@ -151,39 +154,14 @@ public class MainFrame extends JFrame {
 
 		layeredContent.removeAll();
 		layeredContent.add(pnlMainContents[selectPanelIndex]);
-		layeredContent.repaint();
 		layeredContent.revalidate();
+		layeredContent.getParent().repaint();
 	}
 
+	private void createNewInstance() {
+	}
+	
 	public static void main(String[] args) {
-		MainFrame main = new MainFrame(new User(Long.valueOf(1), "Long", "094545", "123456"));
-	}
-}
-
-@Data
-class MenuItem extends JPanel{
-	String title;
-	ImageIcon icon;
-	JLabel label;
-	
-	public MenuItem(String title, ImageIcon icon) {
-		super(new GridLayout());
-		this.title = title;
-		this.icon = icon;
-		initComp();
-	}
-	
-	public void initComp() {
-		label = new JLabel(this.title, this.icon, JLabel.CENTER);
-		label.setForeground(Resources.SECONDARY_LIGHT);
-		this.add(label);
-	}
-	
-	public void setSelectedState() {
-		label.setForeground(Resources.SECONDARY_DARK);
-	}
-	
-	public void setUnselectedState() {
-		label.setForeground(Resources.SECONDARY_LIGHT);
+		MainFrameV1 main = new MainFrameV1(new User(Long.valueOf(1), "Long", "094545", "123456"));
 	}
 }

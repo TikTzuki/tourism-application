@@ -24,6 +24,7 @@ import com.tourism.GUI.Resources;
 import com.tourism.GUI.frames.touristgroup.TestFrame;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
 import com.tourism.GUI.util.DatePicker;
+import com.tourism.GUI.util.MessageDialog;
 import com.tourism.service.Validation;
 
 public class TouristGroupBasicModifyPanel extends JPanel {
@@ -143,7 +144,7 @@ public class TouristGroupBasicModifyPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				String tourName = cbxTourName.getSelectedItem().toString();
 				Long tourIdSelected = Long.valueOf(tourName.substring(0, tourName.lastIndexOf(".")));
-				Double revenueTemp = new ModifyTourCostDialog(TG.getRevenue(), tourIdSelected)
+				Double revenueTemp = new ModifyTourCostDialog(tourIdSelected)
 						.modifyTouristGroupRevenue();
 				TG.setRevenue(revenueTemp);
 				txtRevenueValue.setText(revenueTemp.toString());
@@ -208,22 +209,30 @@ public class TouristGroupBasicModifyPanel extends JPanel {
 	
 	public static Boolean commitToSelectedTouristGroup() {
 		TouristGroup TG=TouristGroupMainPanel.selectedTouristGroup;
-		if(txtName.getText().equals(""))
-			return false;
-		if(!Validation.checkDate(txtDepatureDate.getText()))
-			return false;
-		if(!Validation.checkDate(txtEndDate.getText()))
-			return false;
+		String error = "";
+		if(txtName.getText().equals("")) {
+			error += "Không được để trống tên đoàn. ";
+		}
+		if(!Validation.checkDate(txtDepatureDate.getText())) {
+			error += "Sai định dạng ngày khởi hành. ";
+		}
+		if(!Validation.checkDate(txtEndDate.getText())) {
+			error += "Sai định dạng ngày kết thúc. ";
+		}
 		try {
 			if( Resources.simpleDateFormat.parse(txtDepatureDate.getText())
-					.after(Resources.simpleDateFormat.parse(txtEndDate.getText())))
-				return false;
+					.after(Resources.simpleDateFormat.parse(txtEndDate.getText()))) {
+				error += "Ngày khỏi hành phải trước ngày kết thúc. ";
+			}
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
 		if(cbxStatus.getSelectedItem().toString().equals(""))
+			error += "Chọn trạng thái!!! ";
+		if(!error.equals("")) {
+			new MessageDialog(error);
 			return false;
-		
+		}
 		TG.setName(txtName.getText());
 		try {
 			TG.setDepatureDate(Resources.simpleDateFormat.parse(txtDepatureDate.getText()));
