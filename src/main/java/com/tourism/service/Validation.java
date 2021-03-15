@@ -49,4 +49,9 @@ public class Validation {
 		}
 		return false;
 	}
+	public static boolean checkText(String text) {
+		if(text.matches("^[a-zA-Z]+$"))
+			return false;
+		return true;
+	}
 }

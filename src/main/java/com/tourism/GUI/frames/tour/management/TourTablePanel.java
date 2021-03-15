@@ -3,6 +3,8 @@ package com.tourism.GUI.frames.tour.management;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.JPanel;
@@ -10,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.tourism.BUS.TourController;
+import com.tourism.BUS.TypeController;
 import com.tourism.DAL.TourCostRepository;
 import com.tourism.DTO.Tour;
 import com.tourism.DTO.TourCost;
@@ -40,9 +44,10 @@ public class TourTablePanel extends JPanel {
 		tbl = new CustomTable(model);
 		scroller = new JScrollPane(tbl);
 		
-		TourMainPanel.Tours.forEach(TG -> {
+		TourMainPanel.Tours.forEach(tour -> {
 			
-			model.addRow(new Object[] { TG.getId(), TG.getName(), TG.getTypeId(), TG.getDescription(), TG.getStatus()});
+			model.addRow(new Object[] { tour.getId(), tour.getName(), new TypeController().getNameById(tour.getTypeId()),
+					tour.getDescription(), tour.getStatus()});
 		});
 		
 	}
@@ -66,5 +71,16 @@ public class TourTablePanel extends JPanel {
 		scroller.setPreferredSize(Resources.MANAGER_TABLE_SCROLLER);
 		add(scroller);
 		setBackground(Resources.PRIMARY);
+	}
+	
+	public void reloadTable() {
+		List<Tour> tours = new ArrayList<Tour>();
+		tours = new TourController().getAll();
+		tours.forEach(tour -> {
+			model.addRow(new Object[] {
+					tour.getId(), tour.getName(), new TypeController().getNameById(tour.getTypeId()),
+					tour.getDescription(), tour.getStatus()
+			});
+		});
 	}
 }

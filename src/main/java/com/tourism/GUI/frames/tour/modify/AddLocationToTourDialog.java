@@ -64,7 +64,7 @@ public class AddLocationToTourDialog {
 		tourController = new TourController();
 		
 		cbxAddress1= new JComboBox<String>();
-		locationController.findAllDistinct().forEach(location->{
+		locationController.findAllDistinct().forEach(location->{			
 			cbxAddress1.addItem(0+"."+location.getAddress1());
 		});
 		
