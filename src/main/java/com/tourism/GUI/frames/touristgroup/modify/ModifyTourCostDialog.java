@@ -29,7 +29,7 @@ public class ModifyTourCostDialog {
 	JDialog dialog;
 	JPanel pnl;
 	GroupLayout layout;
-
+	
 	JLabel lblDate;
 	JComboBox<String> cbxDate;
 
@@ -45,9 +45,9 @@ public class ModifyTourCostDialog {
 	JButton btnSave;
 	JButton btnCancel;
 
-	public ModifyTourCostDialog(Double revenue, Long tourId) {
-		this.currentRevenue = revenue;
+	public ModifyTourCostDialog(Long tourId) {
 		this.tour = new TourController().getById(tourId);
+		this.currentRevenue = Double.valueOf(0);
 		initData();
 		initComp();
 	}
@@ -57,11 +57,11 @@ public class ModifyTourCostDialog {
 	dialog = new JDialog();
 	pnl = new JPanel();
 	layout = new GroupLayout(pnl);
-
+	
 	lblDate = new JLabel("Thời gian: ");
 	cbxDate = new JComboBox<String>();
 
-	lblCost = new JLabel("Giá tour: ");
+	lblCost = new JLabel("Gía tour: ");
 	lblCostValue = new JLabel(tourCosts.size()>0 ? tourCosts.get(0).getPrice().toString() : "0");
 
 	lblCustomer = new JLabel("Khách hàng: ");
@@ -71,7 +71,7 @@ public class ModifyTourCostDialog {
 	lblRevenueValue = new JLabel(this.currentRevenue.toString());
 	
 	btnSave = new JButton("Lưu");
-	btnCancel = new JButton("Hủy");
+	btnCancel = new JButton("hủy");
 	}
 
 	public void initComp() {
@@ -89,13 +89,15 @@ public class ModifyTourCostDialog {
 						).getPrice().toString()
 				);
 				Double newRevenue = Double.valueOf(lblCostValue.getText()) * Double.valueOf(lblCustomerValue.getText());
-				System.out.println(newRevenue);
 				lblRevenueValue.setText(
 						newRevenue.toString()
 				);
 			}
 		});
 		
+		Double newRevenue = Double.valueOf(lblCostValue.getText()) * Double.valueOf(lblCustomerValue.getText());
+		lblRevenueValue.setText(newRevenue.toString());
+
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {

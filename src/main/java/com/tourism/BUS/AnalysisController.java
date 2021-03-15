@@ -39,7 +39,6 @@ public class AnalysisController {
 			System.out.println("TGs Size:"+TGs.size());
 			emp.setTouristGroups(TGs);
 		});
-		System.out.println(employees);
 		return employees;
 	}
 	

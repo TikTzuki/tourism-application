@@ -109,7 +109,15 @@ public class TouristGroupController {
 		while(touristGroupsIterator.hasNext()){
 			TouristGroup TG = touristGroupsIterator.next();
 			savedTGs.get(i).setCustomers(TG.getCustomers());
+
+			TG.getTourPositions().forEach(position ->{
+				position.setTouristGroupId(TG.getId());
+			});
 			savedTGs.get(i).setTourPositions(TG.getTourPositions());
+
+			TG.getTouristGroupCosts().forEach(cost->{
+				cost.setTouristGroupId(TG.getId());
+			});
 			savedTGs.get(i).setTouristGroupCosts(TG.getTouristGroupCosts());
 			i++;
 		}

@@ -30,9 +30,11 @@ import com.tourism.DTO.TouristGroupCostItem;
 import com.tourism.DTO.CostType;
 import com.tourism.DTO.TouristGroup;
 import com.tourism.GUI.CustomTable;
-import com.tourism.GUI.MainFrame;
+import com.tourism.GUI.MainFrameV1;
 import com.tourism.GUI.Resources;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;
+import com.tourism.GUI.util.MessageDialog;
+import com.tourism.service.Validation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -82,7 +84,7 @@ public class AddTouristGroupCostToTouristGroupDialog {
 		layout = new GroupLayout(pnl);
 		
 		lblTotalCost =new JLabel("Tổng chi phí");
-		txtTotalCost = new JTextField();
+		txtTotalCost = new JTextField("0");
 
 		lblDescription = new JLabel("Chi tiết hóa đơn:");
 		cbxCostType = new JComboBox<String>();
@@ -172,6 +174,10 @@ public class AddTouristGroupCostToTouristGroupDialog {
 					totalCost += Double.valueOf(tblDescription.getValueAt(i, 3).toString());
 				}
 				selectedTouristGroupCost.setDescription(costItems);
+				if(txtTotalCost.getText().equals("") || txtTotalCost.getText().equals("0") || !Validation.checkDigitWithFloatPoint(txtTotalCost.getText())) {
+					new MessageDialog("Không ai lập hóa đơn 0 đồng đâu. Idiot!!!");
+					return;
+				}
 				selectedTouristGroupCost.setTotalPrice(Double.valueOf(txtTotalCost.getText()));
 				dialog.dispose();
 			}

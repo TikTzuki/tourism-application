@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class ConfirmDialog {
 	
@@ -17,7 +20,12 @@ public class ConfirmDialog {
 	JButton btnYes;
 	JButton btnNo;
 	Boolean answer;
+	JPanel pnlContent;
+	GroupLayout layout;
 	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public ConfirmDialog(String message) {
 		dialog = new JDialog();
 		dialog.setModal(true);
@@ -26,10 +34,8 @@ public class ConfirmDialog {
 		btnYes = new JButton("Có");
 		btnNo = new JButton("Không");
 		answer = false; 
-		
-		lblMessage.setBounds(10, 0, 200, 50);
-		btnYes.setBounds(10, 60, 100, 24);
-		btnNo.setBounds(120, 60, 100, 24);
+		pnlContent = new JPanel();
+		layout = new GroupLayout(pnlContent);
 		
 		btnYes.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) {
@@ -47,11 +53,25 @@ public class ConfirmDialog {
 			}
 		});
 		
-		dialog.setPreferredSize(new Dimension(250,150));
-		dialog.setLayout(null);
-		dialog.add(lblMessage);
-		dialog.add(btnYes);
-		dialog.add(btnNo);
+		layout.setAutoCreateContainerGaps(true);
+		layout.setAutoCreateGaps(true);
+		layout.setHorizontalGroup(layout.createSequentialGroup()
+				.addGroup( layout.createParallelGroup(Alignment.CENTER)
+						.addComponent(lblMessage)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(btnYes)
+								.addGap(50)
+								.addComponent(btnNo))));
+		layout.setVerticalGroup(layout.createSequentialGroup()
+				.addGap(20)
+				.addComponent(lblMessage)
+				.addGap(20)
+				.addGroup(layout.createParallelGroup()
+						.addComponent(btnYes)
+						.addComponent(btnNo)));
+
+		pnlContent.setLayout(layout);
+		dialog.setContentPane(pnlContent);
 		dialog.pack();
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);

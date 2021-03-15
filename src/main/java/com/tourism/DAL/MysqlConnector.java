@@ -26,7 +26,6 @@ public class MysqlConnector extends Connector {
     	String url = "jdbc:mysql://" + this.host + "/" + this.database;
         try {
           connection = DriverManager.getConnection(url, this.userName, this.password);
-          logger.info("Connect success!!! count = " + ++count);
         } catch (Exception e) {
         	e.printStackTrace();
         }

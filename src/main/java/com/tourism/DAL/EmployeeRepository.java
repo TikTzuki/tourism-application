@@ -21,7 +21,6 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 	public Employee save(Employee entity) {
 		List<Employee> emps = new ArrayList<Employee>();
 		emps.add(entity);
-		System.out.println(emps);
 		return saveAll(emps).get(0);
 	}
 
@@ -41,7 +40,6 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 				updateQuery.append("phone_number = \"" + e.getPhoneNumber() + "\", ");
 				updateQuery.append("status = \"" + e.getStatus() + "\" ");
 				updateQuery.append("WHERE id = \"" + e.getId() + "\" ;");
-				System.out.print(updateQuery);
 				this.connector.executeUpdate(updateQuery.toString());
 			} else {
 				StringBuilder insertQuery = new StringBuilder(
@@ -51,11 +49,10 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 				insertQuery.append("\"" + e.getAddress1() + "\", ");
 				insertQuery.append("\"" + e.getAddress2() + "\", ");
 				insertQuery.append("\"" + e.getAddress3() + "\", ");
-				insertQuery.append("\""+e.getStreet() + "\", ");
+				insertQuery.append("\"" + e.getStreet() + "\", ");
 				insertQuery.append("\"" + e.getGender() + "\", ");
 				insertQuery.append("\"" + e.getPhoneNumber() + "\", ");
 				insertQuery.append("\"" + e.getStatus() + "\" ); ");
-				System.out.println(insertQuery);
 				connector.executeUpdate(insertQuery.toString());
 				ResultSet returnedResultSet = connector
 						.executeQuery("SELECT * FROM employee ORDER BY `id` DESC LIMIT 1");
@@ -82,7 +79,7 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(id);
 		List<Employee> objs = findAllById(ids);
-		return objs.isEmpty() ? Optional.empty() : Optional.ofNullable(objs.get(0)); 
+		return objs.isEmpty() ? Optional.empty() : Optional.ofNullable(objs.get(0));
 	}
 
 	@Override
@@ -93,15 +90,13 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 
 	@Override
 	public List<Employee> findAllById(Iterable<Long> ids) {
-		if(!ids.iterator().hasNext())
+		if (!ids.iterator().hasNext())
 			return new ArrayList<Employee>();
 		StringBuilder query = new StringBuilder("SELECT * FROM employee WHERE ");
 		ids.forEach(id -> {
 			query.append(" id=\"" + id + "\" OR ");
 		});
-		return extractResultSet(connector.executeQuery(
-					query.substring(0, query.lastIndexOf("OR"))
-				));
+		return extractResultSet(connector.executeQuery(query.substring(0, query.lastIndexOf("OR"))));
 	}
 
 	@Override
@@ -138,10 +133,11 @@ public class EmployeeRepository implements Repositories<Employee, Long> {
 		// TODO Auto-generated method stub
 
 	}
-	public List<Employee> extractResultSet(ResultSet rsEmp){
+
+	public List<Employee> extractResultSet(ResultSet rsEmp) {
 		List<Employee> employees = new ArrayList<Employee>();
 		try {
-			while (rsEmp!=null && rsEmp.next()) {
+			while (rsEmp != null && rsEmp.next()) {
 				Employee emp = new Employee();
 				emp.setId(Long.valueOf(rsEmp.getLong("id")));
 				emp.setName(rsEmp.getString("name"));

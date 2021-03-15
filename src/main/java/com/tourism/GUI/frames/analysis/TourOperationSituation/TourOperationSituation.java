@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;//ThỐng kê tour có ba
+import javax.swing.JScrollBar;//Thá»�ng kÃª tour cÃ³ ba
 
 public class TourOperationSituation extends JPanel {
 	AnalysisController analysisController = new AnalysisController();
@@ -51,7 +51,7 @@ public class TourOperationSituation extends JPanel {
 	btnDetail = new JButton("Chi tiết");
 	pnlDetail = new JPanel();
 	
-	model = new DefaultTableModel(new Object[] {"#", "Tour", "Số đoàn đi", "Doanh thu", "Chi phí", "Lãi"}, 0);
+	model = new DefaultTableModel(new Object[] {"#", "Tour", "Số đoàn khách", "Doanh thu", "Chi phí", "Lãi"}, 0);
 	tbl = new CustomTable(model);
 	scroller = new JScrollPane(tbl);
 	}	

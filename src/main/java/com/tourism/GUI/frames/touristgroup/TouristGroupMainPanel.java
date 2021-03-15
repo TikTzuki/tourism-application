@@ -16,7 +16,7 @@ import com.tourism.DTO.Customer;
 import com.tourism.DTO.TouristGroupCost;
 import com.tourism.DTO.TourPosition;
 import com.tourism.DTO.TouristGroup;
-import com.tourism.GUI.MainFrame;
+import com.tourism.GUI.MainFrameV1;
 import com.tourism.GUI.frames.touristgroup.management.TouristGroupManager;
 import com.tourism.GUI.frames.touristgroup.modify.TouristGroupModify;
 
@@ -61,6 +61,7 @@ public class TouristGroupMainPanel extends JPanel {
 		selectedTouristGroup.setCustomers(new ArrayList<Customer>());
 		selectedTouristGroup.setTouristGroupCosts(new ArrayList<TouristGroupCost>());
 		selectedTouristGroup.setTourPositions(new ArrayList<TourPosition>());
+		selectedTouristGroup.setRevenue(Double.valueOf(0));
 		mainContent.removeAll();
 		mainContent.add(new TouristGroupModify());
 		mainContent.getParent().revalidate();
