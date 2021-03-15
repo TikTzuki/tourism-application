@@ -23,7 +23,6 @@ import com.tourism.BUS.EmployeeController;
 import com.tourism.DTO.Employee;
 import com.tourism.GUI.CustomTable;
 import com.tourism.GUI.Resources;
-import com.tourism.GUI.frames.tour.TourFrame;
 import com.tourism.GUI.util.ConfirmDialog;
 import com.tourism.GUI.util.MessageDialog;
 import com.tourism.service.Validation;
