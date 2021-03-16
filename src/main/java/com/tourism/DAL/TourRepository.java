@@ -230,17 +230,17 @@ public class TourRepository implements Repositories<Tour, Long> {
 	public List<Tour> searchTour(Tour tour){
 		StringBuilder query = new StringBuilder("SELECT * FROM tour WHERE status <> \"deleted\" AND ");
 		if( tour.getId() !=null )
-			query.append(" id = \""+tour.getId() + "\" OR ");
+			query.append(" id = \""+tour.getId() + "\" AND ");
 		if( !tour.getName().equals(""))
-			query.append(" name LIKE \"%"+ tour.getName() +"%\" OR " );
+			query.append(" name LIKE \"%"+ tour.getName() +"%\" AND " );
 		if( tour.getTypeId() != null)
-			query.append("type_id = \"" + tour.getTypeId()+ "\" OR ");
+			query.append("type_id = \"" + tour.getTypeId()+ "\" AND ");
 		if( tour.getStatus() != null)
-			query.append("status = \"" + tour.getStatus() + "\" OR");
+			query.append("status = \"" + tour.getStatus() + "\" AND");
 		System.out.println(query.toString());
 		return extractResultSet(connector.executeQuery(
 				query.substring(0,
-						query.lastIndexOf("OR") != -1 ? query.lastIndexOf("OR") : query.lastIndexOf("AND"))));
+						query.lastIndexOf("AND") != -1 ? query.lastIndexOf("AND") : query.lastIndexOf("AND"))));
 	}
 	public List<Tour> sortTourByName(String nameTour, String location, String typeTour, int temp){
 		ResultSet rsTour;

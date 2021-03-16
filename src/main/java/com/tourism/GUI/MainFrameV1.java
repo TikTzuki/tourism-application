@@ -22,7 +22,6 @@ import com.tourism.DTO.User;
 import com.tourism.GUI.frames.analysis.AnalysisMainPanel;
 import com.tourism.GUI.frames.customer.CustomerMainPanel;
 import com.tourism.GUI.frames.employee.EmployeeMainPanel;
-import com.tourism.GUI.frames.tour.TourFrame;
 import com.tourism.GUI.frames.tour.TourMainPanel;
 import com.tourism.GUI.frames.tourcatalog.TourCatalogMainPanel;
 import com.tourism.GUI.frames.touristgroup.TouristGroupMainPanel;

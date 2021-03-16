@@ -45,7 +45,7 @@ public class TourSearchPanel extends JPanel {
 	JComboBox<String> cbxStatus;
 	JPanel pnlStatus;
 	
-	JButton btnCreate;
+	JButton btnReload;
 	JButton btnSearch;
 	
 	TourController tourController = new TourController();
@@ -74,6 +74,7 @@ public class TourSearchPanel extends JPanel {
 		pnlStatus = new JPanel();
 
 		btnSearch = new JButton("Tìm");
+		btnReload = new JButton("Làm mới");
 	}
 	
 	public void initComp() {
@@ -109,6 +110,22 @@ public class TourSearchPanel extends JPanel {
 			}
 		});
 		
+		btnReload.setBackground(Resources.PRIMARY_DARK);
+		btnReload.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent evt) {
+				reload();
+				Tour tour = new Tour();
+				tour.setId(txtId.getText().equals("") ? null : Long.valueOf(txtId.getText()));
+				String status = cbxStatus.getSelectedItem().toString();
+				tour.setStatus(status.equals("") ? null : status);
+				String typeTour= cbxTypeTour.getSelectedItem().toString();
+				tour.setTypeId(typeTour.equals("") ? null : Long.valueOf(typeTour.substring(0, typeTour.indexOf("."))));
+				tour.setName(txtName.getText());
+				TourMainPanel.Tours = tourController.searchTour(tour);
+				TourManager.ReloadManagerTable();
+			}
+		});
+		
 		this.setLayout(layout);
 		this.setBackground(Resources.PRIMARY);
 		layout.setAutoCreateGaps(true);
@@ -130,7 +147,9 @@ public class TourSearchPanel extends JPanel {
 						.addComponent(cbxStatus))
 				.addGap(ImageObserver.FRAMEBITS)
 				.addGroup(layout.createParallelGroup()
-						.addComponent(btnSearch))
+						.addComponent(btnSearch)
+						.addComponent(btnReload))
+				
 				);
 		
 		layout.setVerticalGroup(
@@ -150,7 +169,15 @@ public class TourSearchPanel extends JPanel {
 				.addGap(100)
 				.addGroup(layout.createSequentialGroup()
 						.addComponent(btnSearch)
+						.addComponent(btnReload)
 						)
 				);
+	}
+	
+	private void reload() {
+		txtId.setText("");
+		txtName.setText("");
+		cbxStatus.setSelectedItem("");
+		cbxTypeTour.setSelectedItem("");
 	}
 }
