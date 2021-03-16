@@ -31,7 +31,7 @@ public class TourController {
 		tours.forEach(tour->{
 			tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
 
-			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
+		//	tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId()));
 			tour.setTourCosts(tourCostRepository.findAllByTourId(tour.getId()));
 			tour.setType(typeRepository.findById(tour.getTypeId()).orElse(null));
 
@@ -51,7 +51,7 @@ public class TourController {
 		tours = tourRepository.searchTour(object);
 		tours.forEach(tour -> {
 			tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
-			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
+			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(),false));
 			tour.setTourCosts(tourCostRepository.findAllByTourId(tour.getId()));
 			tour.setType(typeRepository.findById(tour.getTypeId()).orElse(null));
 		});
@@ -65,7 +65,7 @@ public class TourController {
 			return tour;
 		}
 		tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
-		tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
+		tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(),false));
 		tour.setTourCosts(tourCostRepository.findAllByTourId(tour.getId()));
 		tour.setType(typeRepository.findById(tour.getTypeId()).orElse(null));
 		return tour;
@@ -103,7 +103,7 @@ public class TourController {
 			tour = opt.get();
 			tour.setLocations(locationRepository.findAllByTourId(tour.getId()));
 			tour.setTouristGroups(touristGroupRepository.findAllByTourId(tour.getId(), false));
-			tour.setTourCosts(new TourCostRepository().findAllByTourId(tour.getId()));
+			tour.setTourCosts(tourCostRepository.findAllByTourId(tour.getId()));
 			return tour;
 		}
 		return tour;
