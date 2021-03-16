@@ -61,4 +61,8 @@ public class TourCostController {
 		});
 		return tourCosts;
 	}
+	
+	public void deleteById(Long id) {
+		tourCostRepository.deleteById(id);
+	}
 }

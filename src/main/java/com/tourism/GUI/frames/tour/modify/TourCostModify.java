@@ -212,7 +212,7 @@ public class TourCostModify extends JPanel {
 			return false;
 		}
 		int checkPrice = Integer.parseInt(txtPrice.getText());
-		if((checkPrice % 100000 != 0) || !(checkPrice >= 500000)) {
+		if((checkPrice % 1000 != 0) || !(checkPrice >= 500000)) {
 			new MessageDialog("Số tiền không hợp lệ! Giá tour phải lớn hơn 500.000 VND");
 			return false;
 		}

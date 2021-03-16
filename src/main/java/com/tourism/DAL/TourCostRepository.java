@@ -102,7 +102,9 @@ public class TourCostRepository implements Repositories<TourCost, Long> {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(id);
+		deleteAllById(ids);
 		
 	}
 
@@ -114,7 +116,11 @@ public class TourCostRepository implements Repositories<TourCost, Long> {
 
 	@Override
 	public void deleteAllById(Iterable<? extends Long> ids) {
-		// TODO Auto-generated method stub
+		StringBuilder query = new StringBuilder("DELETE FROM tour_cost WHERE ");
+		ids.forEach(id -> {
+			query.append(" id = " + id + " OR");
+		});
+		this.connector.executeUpdate(query.substring(0, query.length() - 2));
 		
 	}
 
