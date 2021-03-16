@@ -240,7 +240,11 @@ CREATE TABLE `tour_cost` (
   PRIMARY KEY (`id`),
   KEY `tour_cost_ibfk_2` (`tour_id`),
   CONSTRAINT `tour_cost_ibfk_2` FOREIGN KEY (`tour_id`) REFERENCES `tour` (`id`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 5525bcc25ff2d8e58911f3e2503cbea8b50d208e
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
